@@ -19,8 +19,6 @@ public class MainMenu : MonoBehaviour
 
     public void Start()
     {
-        //playButton = GetComponent<Button>();
-        //quitButton = GetComponent<Button>();
         alertText.text = "";
         gameTimesText.text = "";
         highScoreText.text = "";
@@ -73,8 +71,24 @@ public class MainMenu : MonoBehaviour
         }
         catch (WebException error)
         {
+            string alert = error.Status.ToString();
             Debug.Log(error);
-            alertText.text = error.Status.ToString();
+            if (alert == "ConnectFailure")
+            {
+                alertText.text = alert + "\n" + "Lost connection to server";
+            }
+            else if (alert == "NameResolutionFailure")
+            {
+                alertText.text = alert + "\n" + "Please check internet connection!";
+            }
+            else if (alert == "ProtocolError")
+            {
+                alertText.text = alert + "\n" + "Please restart the game!";
+            }
+            else
+            {
+                alertText.text = alert;
+            }
         }
     }
 

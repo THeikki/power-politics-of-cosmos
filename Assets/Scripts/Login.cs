@@ -113,9 +113,20 @@ public class Login : MonoBehaviour
         }
         catch (WebException error)
         {
+            string alert = error.Status.ToString();
             Debug.Log(error);
-            alertText.text = error.Status.ToString();
-            //return;
+            if (alert == "ConnectFailure")
+            {
+                alertText.text = alert + "\n" + "Lost connection to server";
+            }
+            else if (alert == "NameResolutionFailure")
+            {
+                alertText.text = alert + "\n" + "Please check internet connection!";
+            }
+            else
+            {
+                alertText.text = alert;
+            }
         }
     }
 }
